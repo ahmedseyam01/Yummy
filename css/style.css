@@ -1,0 +1,151 @@
+body {
+    background-color: #0d0d0d;
+    color: #f8f9fa;
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* Loader */
+.loading-screen {
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loader {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: inline-block;
+    border-top: 4px solid #FFF;
+    border-right: 4px solid transparent;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+.loader::after {
+    content: '';  
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border-left: 4px solid #FF3D00;
+    border-bottom: 4px solid transparent;
+    animation: rotation 0.5s linear infinite reverse;
+}
+@keyframes rotation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Side Nav */
+.side-nav {
+    left: -250px;
+    transition: left 0.5s;
+    z-index: 9999;
+}
+
+.nav-links {
+    width: 250px;
+}
+
+.nav-header {
+    width: 60px;
+}
+
+.animate-link {
+    transform: translateY(300px);
+    transition: transform 0.5s ease-in-out;
+}
+
+.side-nav.open .animate-link {
+    transform: translateY(0);
+}
+
+.side-nav.open .animate-link:nth-child(1) { transition-delay: 0.1s; }
+.side-nav.open .animate-link:nth-child(2) { transition-delay: 0.2s; }
+.side-nav.open .animate-link:nth-child(3) { transition-delay: 0.3s; }
+.side-nav.open .animate-link:nth-child(4) { transition-delay: 0.4s; }
+.side-nav.open .animate-link:nth-child(5) { transition-delay: 0.5s; }
+
+.animate-link a:hover {
+    color: #ffc107 !important;
+}
+
+.loading-screen {
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s, visibility 0.5s;
+}
+
+.loading-screen.d-none {
+    opacity: 0;
+    visibility: hidden;
+    display: flex !important; /* to override bootstrap d-none if applied, actually let's just use opacity */
+}
+
+
+/* Meal Item */
+.meal {
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+.meal .layer {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    transition: top 0.5s;
+}
+
+.meal:hover .layer {
+    top: 0;
+}
+
+/* Details */
+.recipe {
+    background-color: #cff4fc;
+    color: #055160;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 5px;
+    display: inline-block;
+}
+
+.tag {
+    background-color: #f8d7da;
+    color: #842029;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 5px;
+    display: inline-block;
+}
+
+::placeholder {
+    color: #aaa !important;
+}
+
+.form-control {
+    border-color: #ccc;
+}
+.form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+    border-color: #dc3545;
+    background-color: transparent;
+    color: #fff;
+}
