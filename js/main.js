@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function openSideNav() {
     const sideNav = document.querySelector(".side-nav");
-    sideNav.style.left = "0px";
     sideNav.classList.add("open");
     
     const icon = document.querySelector(".open-close-icon");
@@ -21,7 +20,6 @@ function openSideNav() {
 
 function closeSideNav() {
     const sideNav = document.querySelector(".side-nav");
-    sideNav.style.left = "-250px";
     sideNav.classList.remove("open");
     
     const icon = document.querySelector(".open-close-icon");
@@ -31,7 +29,7 @@ function closeSideNav() {
 
 document.querySelector(".side-nav .open-close-icon").addEventListener("click", () => {
     const sideNav = document.querySelector(".side-nav");
-    if (sideNav.style.left === "0px") {
+    if (sideNav.classList.contains("open")) {
         closeSideNav();
     } else {
         openSideNav();
