@@ -81,6 +81,9 @@ body {
         width: 100%;
         margin-bottom: 1.5rem;
     }
+    .mobile-title {
+        display: none;
+    }
 }
 
 /* Mobile & Tablet Styles */
@@ -104,6 +107,12 @@ body {
     }
     .nav-header .logo {
         width: 40px;
+    }
+    .mobile-title {
+        display: block;
+        flex-grow: 1;
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
     }
     .header-icons {
         flex-direction: row !important;
