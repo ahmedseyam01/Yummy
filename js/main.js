@@ -36,7 +36,7 @@ document.querySelector(".side-nav .open-close-icon").addEventListener("click", (
     }
 });
 
-// Loading screen helpers
+
 function showLoading() {
     document.querySelector(".loading-screen").classList.remove("d-none");
 }
@@ -272,52 +272,96 @@ async function searchByFLetter(term) {
 function showContacts() {
     closeSideNav();
     searchContainer.innerHTML = "";
+
+    // Load saved data from localStorage
+    const saved = JSON.parse(localStorage.getItem("yummy_contact") || "{}");
+
     rowData.innerHTML = `
-    <div class="contact min-vh-100 d-flex justify-content-center align-items-center w-100">
-        <div class="container text-center">
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <input id="nameInput" onkeyup="inputsValidation()" type="text" class="form-control bg-transparent text-white" placeholder="Enter Your Name">
-                    <div id="nameAlert" class="alert alert-danger w-100 mt-2 d-none">
-                        Special characters and numbers not allowed
+    <div class="contact-section col-12">
+        <div class="contact-wrapper">
+
+            <!-- Left Info Panel -->
+            <div class="contact-left">
+                <div>
+                    <h2 class="contact-left-title">Let's Talk<br>Food &#127829;</h2>
+                    <p class="contact-left-sub">Have a question or suggestion? We'd love to hear from you!</p>
+                    <div class="contact-info-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>hello@yummy.com</span>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+1 (800) YUMMY-01</span>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>123 Food Street, Flavor City</span>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <input id="emailInput" onkeyup="inputsValidation()" type="email" class="form-control bg-transparent text-white" placeholder="Enter Your Email">
-                    <div id="emailAlert" class="alert alert-danger w-100 mt-2 d-none">
-                        Email not valid *exemple@yyy.zzz
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <input id="phoneInput" onkeyup="inputsValidation()" type="text" class="form-control bg-transparent text-white" placeholder="Enter Your Phone">
-                    <div id="phoneAlert" class="alert alert-danger w-100 mt-2 d-none">
-                        Enter valid Phone Number
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <input id="ageInput" onkeyup="inputsValidation()" type="number" class="form-control bg-transparent text-white" placeholder="Enter Your Age">
-                    <div id="ageAlert" class="alert alert-danger w-100 mt-2 d-none">
-                        Enter valid age
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <input id="passwordInput" onkeyup="inputsValidation()" type="password" class="form-control bg-transparent text-white" placeholder="Enter Your Password">
-                    <div id="passwordAlert" class="alert alert-danger w-100 mt-2 d-none">
-                        Enter valid password *Minimum eight characters, at least one letter and one number
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <input id="repasswordInput" onkeyup="inputsValidation()" type="password" class="form-control bg-transparent text-white" placeholder="Repassword">
-                    <div id="repasswordAlert" class="alert alert-danger w-100 mt-2 d-none">
-                        Enter valid repassword 
-                    </div>
+                <div class="contact-social">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
                 </div>
             </div>
-            <button id="submitBtn" disabled class="btn btn-outline-danger px-2 mt-3">Submit</button>
+
+            <!-- Right Form Panel -->
+            <div class="contact-right">
+                <h3 class="contact-right-title">Send a Message</h3>
+                <p class="contact-right-sub">All fields are required &mdash; we'll respond within 24 hours.</p>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label-custom"><i class="fa-solid fa-user"></i> Full Name</label>
+                        <input id="nameInput" onkeyup="inputsValidation()" type="text" class="form-control" placeholder="Your name" value="${saved.name || ''}">
+                        <div id="nameAlert" class="field-alert d-none mt-1"><i class="fa-solid fa-triangle-exclamation"></i> Letters only, no numbers or symbols</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label-custom"><i class="fa-solid fa-envelope"></i> Email</label>
+                        <input id="emailInput" onkeyup="inputsValidation()" type="email" class="form-control" placeholder="you@example.com" value="${saved.email || ''}">
+                        <div id="emailAlert" class="field-alert d-none mt-1"><i class="fa-solid fa-triangle-exclamation"></i> Invalid email format</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label-custom"><i class="fa-solid fa-phone"></i> Phone</label>
+                        <input id="phoneInput" onkeyup="inputsValidation()" type="text" class="form-control" placeholder="+1 234 567 8900" value="${saved.phone || ''}">
+                        <div id="phoneAlert" class="field-alert d-none mt-1"><i class="fa-solid fa-triangle-exclamation"></i> Enter a valid phone number</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label-custom"><i class="fa-solid fa-cake-candles"></i> Age</label>
+                        <input id="ageInput" onkeyup="inputsValidation()" type="number" class="form-control" placeholder="Your age" value="${saved.age || ''}">
+                        <div id="ageAlert" class="field-alert d-none mt-1"><i class="fa-solid fa-triangle-exclamation"></i> Enter a valid age (1-120)</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label-custom"><i class="fa-solid fa-lock"></i> Password</label>
+                        <input id="passwordInput" onkeyup="inputsValidation()" type="password" class="form-control" placeholder="Min 8 chars, 1 letter &amp; 1 number">
+                        <div id="passwordAlert" class="field-alert d-none mt-1"><i class="fa-solid fa-triangle-exclamation"></i> Min 8 characters, with a letter &amp; number</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label-custom"><i class="fa-solid fa-lock"></i> Confirm Password</label>
+                        <input id="repasswordInput" onkeyup="inputsValidation()" type="password" class="form-control" placeholder="Repeat your password">
+                        <div id="repasswordAlert" class="field-alert d-none mt-1"><i class="fa-solid fa-triangle-exclamation"></i> Passwords do not match</div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <button id="submitBtn" disabled class="submit-btn">
+                        <i class="fa-solid fa-paper-plane me-2"></i>Send Message
+                    </button>
+                </div>
+            </div>
+
         </div>
     </div>
     `;
     submitBtn = document.getElementById("submitBtn");
+
+    // If there's saved data, run validation to mark fields as valid
+    if (saved.name || saved.email || saved.phone || saved.age) {
+        nameInputTouched = !!saved.name;
+        emailInputTouched = !!saved.email;
+        phoneInputTouched = !!saved.phone;
+        ageInputTouched = !!saved.age;
+        inputsValidation();
+    }
 
     document.getElementById("nameInput").addEventListener("focus", () => nameInputTouched = true);
     document.getElementById("emailInput").addEventListener("focus", () => emailInputTouched = true);
@@ -325,6 +369,34 @@ function showContacts() {
     document.getElementById("ageInput").addEventListener("focus", () => ageInputTouched = true);
     document.getElementById("passwordInput").addEventListener("focus", () => passwordInputTouched = true);
     document.getElementById("repasswordInput").addEventListener("focus", () => repasswordInputTouched = true);
+
+    // Save to localStorage on each keyup
+    ["nameInput","emailInput","phoneInput","ageInput"].forEach(id => {
+        document.getElementById(id).addEventListener("keyup", saveContactToStorage);
+    });
+
+    // Save & feedback on submit
+    submitBtn.addEventListener("click", () => {
+        saveContactToStorage();
+        submitBtn.innerHTML = '<i class="fa-solid fa-circle-check me-2"></i>Sent Successfully!';
+        submitBtn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+        submitBtn.disabled = true;
+        setTimeout(() => {
+            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane me-2"></i>Send Message';
+            submitBtn.style.background = '';
+            submitBtn.disabled = false;
+        }, 3000);
+    });
+}
+
+function saveContactToStorage() {
+    const data = {
+        name:  document.getElementById("nameInput")?.value  || "",
+        email: document.getElementById("emailInput")?.value || "",
+        phone: document.getElementById("phoneInput")?.value || "",
+        age:   document.getElementById("ageInput")?.value   || "",
+    };
+    localStorage.setItem("yummy_contact", JSON.stringify(data));
 }
 
 let nameInputTouched = false;
