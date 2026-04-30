@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function openSideNav() {
     const sideNav = document.querySelector(".side-nav");
     sideNav.classList.add("open");
-    
+
     const icon = document.querySelector(".open-close-icon");
     icon.classList.remove("fa-align-justify");
     icon.classList.add("fa-xmark");
@@ -21,7 +21,7 @@ function openSideNav() {
 function closeSideNav() {
     const sideNav = document.querySelector(".side-nav");
     sideNav.classList.remove("open");
-    
+
     const icon = document.querySelector(".open-close-icon");
     icon.classList.remove("fa-xmark");
     icon.classList.add("fa-align-justify");
@@ -63,7 +63,7 @@ function displayMeals(arr) {
         <div class="col-md-3">
             <div onclick="getMealDetails('${arr[i].idMeal}')" class="meal position-relative overflow-hidden rounded-2 cursor-pointer">
                 <img class="w-100" src="${arr[i].strMealThumb}" alt="${arr[i].strMeal}">
-                <div class="layer position-absolute d-flex align-items-center text-black p-2">
+                <div class="layer position-absolute d-flex align-items-center p-2">
                     <h3>${arr[i].strMeal}</h3>
                 </div>
             </div>
@@ -93,7 +93,7 @@ function displayCategories(arr) {
         <div class="col-md-3">
             <div onclick="getCategoryMeals('${arr[i].strCategory}')" class="meal position-relative overflow-hidden rounded-2 cursor-pointer">
                 <img class="w-100" src="${arr[i].strCategoryThumb}" alt="${arr[i].strCategory}">
-                <div class="layer position-absolute d-flex flex-column text-center text-black p-2">
+                <div class="layer position-absolute d-flex flex-column justify-content-center text-center p-2">
                     <h3>${arr[i].strCategory}</h3>
                     <p>${desc}</p>
                 </div>
@@ -268,7 +268,7 @@ async function searchByFLetter(term) {
     hideLoading();
 }
 
-// Contact Us form
+
 function showContacts() {
     closeSideNav();
     searchContainer.innerHTML = "";
