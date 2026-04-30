@@ -44,19 +44,87 @@ body {
     100% { transform: rotate(360deg); }
 }
 
-/* Side Nav */
+/* Side Nav Base */
 .side-nav {
-    left: -250px;
-    transition: left 0.5s;
+    position: fixed;
     z-index: 9999;
+    display: flex;
 }
 
-.nav-links {
-    width: 250px;
+/* Desktop Styles */
+@media (min-width: 769px) {
+    .side-nav {
+        top: 0;
+        bottom: 0;
+        left: -250px;
+        transition: left 0.5s;
+    }
+    .side-nav.open {
+        left: 0;
+    }
+    .nav-links {
+        width: 250px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 1.5rem;
+    }
+    .nav-header {
+        width: 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 0.5rem;
+    }
+    .nav-header .logo {
+        width: 100%;
+        margin-bottom: 1.5rem;
+    }
 }
 
-.nav-header {
-    width: 60px;
+/* Mobile & Tablet Styles */
+@media (max-width: 768px) {
+    .side-nav {
+        top: 0;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+    }
+    
+    .nav-header {
+        width: 100%;
+        height: 60px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1rem;
+        z-index: 2;
+    }
+    .nav-header .logo {
+        width: 40px;
+    }
+    .header-icons {
+        flex-direction: row !important;
+        display: none !important; /* Hide social icons in top bar to save space */
+    }
+
+    .nav-links {
+        width: 100%;
+        height: 0;
+        overflow: hidden;
+        padding: 0 1.5rem;
+        transition: height 0.5s, padding 0.5s;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    .side-nav.open .nav-links {
+        height: calc(100vh - 60px);
+        padding: 1.5rem;
+    }
 }
 
 .animate-link {
